@@ -1,4 +1,4 @@
 {
-  "extends": "@ogustavohp/eslint-config/react",
+  "extends": "@ogustavohp/eslint-config/react"
   // "rules": {"camelcase": "off"}
 }
