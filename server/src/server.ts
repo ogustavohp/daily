@@ -7,4 +7,6 @@ app.get('/', () => {
 
 app.listen({
   port: 3333
+}).then(() => {
+  console.log('Server running in: http://localhost:3333/')
 })
