@@ -53,7 +53,7 @@ export default function New() {
         <TextInput
           placeholder="Ex: Exercícios, dormir bem e etc ..."
           placeholderTextColor={colors.zinc[400]}
-          className="mt-3 h-12 rounded-lg bg-zinc-800 pl-4 text-white focus:border-2 focus:border-green-600"
+          className="mt-3 h-12 rounded-lg border-2 border-zinc-800 bg-zinc-900 pl-4 text-white focus:border-green-600"
         />
 
         <Text className="mb-3 mt-4 text-base font-semibold text-white">
