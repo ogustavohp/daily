@@ -1,9 +1,11 @@
-import Habit from '@/components/Habit'
+import Header from '@/components/Header'
+import SummaryTable from '@/components/SummaryTable'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Habit />
-    </main>
+    <div className="flex w-full max-w-5xl flex-col gap-16 px-6">
+      <Header />
+      <SummaryTable />
+    </div>
   )
 }
