@@ -26,7 +26,7 @@ export default function SummaryTable() {
   }, [])
   return (
     <div className="flex w-full">
-      <div className="grid grid-flow-row grid-rows-7 gap-3">
+      <div className="grid grid-flow-row grid-rows-7 gap-3 py-1">
         {weekDays.map((day, i) => (
           <div
             key={`${day}-${i}`}
@@ -37,7 +37,7 @@ export default function SummaryTable() {
         ))}
       </div>
 
-      <div className="grid grid-flow-col grid-rows-7 gap-3 overflow-x-auto">
+      <div className="grid grid-flow-col grid-rows-7 gap-3 overflow-x-auto p-1">
         {summary.length > 0 &&
           summaryDates.map((date) => {
             const dayInSummary = summary.find((day) => {
