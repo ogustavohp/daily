@@ -32,6 +32,7 @@ export function DailyList({ date, onCompletedChanged }: DailyListProps) {
       .then((res) => {
         setDailyInfo(res.data)
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const isDateInPast = dayjs(date).endOf('day').isBefore(new Date())
