@@ -40,7 +40,7 @@ export default function New() {
   async function handleCreateNewDaily() {
     try {
       if (!title.trim() || weekDays.length === 0) {
-        Alert.alert(
+        return Alert.alert(
           'Nova daily',
           'Informe o nome da daily e escolha a periodicidade.',
         )
