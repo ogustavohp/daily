@@ -1,4 +1,5 @@
 import {
+  Alert,
   ScrollView,
   Text,
   TextInput,
@@ -10,6 +11,7 @@ import { Checkbox } from '../components/Checkbox'
 import { useState } from 'react'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
+import { api } from '../lib/axios'
 
 const availableWeekDays = [
   'Domingo',
@@ -22,6 +24,7 @@ const availableWeekDays = [
 ]
 
 export default function New() {
+  const [title, setTitle] = useState('')
   const [weekDays, setWeekDays] = useState<number[]>([])
 
   function handleToggleWeekDay(weekDayIndex: number) {
@@ -31,6 +34,26 @@ export default function New() {
       )
     } else {
       setWeekDays((prevState) => [...prevState, weekDayIndex])
+    }
+  }
+
+  async function handleCreateNewDaily() {
+    try {
+      if (!title.trim() || weekDays.length === 0) {
+        Alert.alert(
+          'Nova daily',
+          'Informe o nome da daily e escolha a periodicidade.',
+        )
+      }
+
+      await api.post('/habits', { title, weekDays }).then(() => {
+        setTitle('')
+        setWeekDays([])
+        Alert.alert('Nova daily', 'Daily criada com sucesso!')
+      })
+    } catch (err) {
+      console.log(err)
+      Alert.alert('Vix', 'não foi possível criar a nova daily.')
     }
   }
 
@@ -54,6 +77,8 @@ export default function New() {
           placeholder="Ex: Exercícios, dormir bem e etc ..."
           placeholderTextColor={colors.zinc[400]}
           className="mt-3 h-12 rounded-lg border-2 border-zinc-800 bg-zinc-900 pl-4 text-white focus:border-green-600"
+          onChangeText={setTitle}
+          value={title}
         />
 
         <Text className="mb-3 mt-4 text-base font-semibold text-white">
@@ -71,6 +96,7 @@ export default function New() {
 
         <TouchableOpacity
           activeOpacity={0.7}
+          onPress={handleCreateNewDaily}
           className="mt-6 h-14 w-full flex-row items-center justify-center rounded-md bg-green-600"
         >
           <Feather name="check" size={20} color={colors.white} />
