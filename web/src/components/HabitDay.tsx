@@ -1,30 +1,36 @@
 'use client'
 import '../lib/dayjs'
 import * as Popover from '@radix-ui/react-popover'
-import * as Checkbox from '@radix-ui/react-checkbox'
 import ProgressBar from './ProgressBar'
 import clsx from 'clsx'
-import { Check } from 'lucide-react'
 import dayjs from 'dayjs'
+import { DailyList } from './DailyList'
+import { useState } from 'react'
 
 interface HabitDayProps {
   date: Date
-  completed?: number
+  defaultCompleted?: number
   amount?: number
 }
 
 export default function HabitDay({
   amount = 0,
-  completed = 0,
+  defaultCompleted = 0,
   date,
 }: HabitDayProps) {
+  const [completed, setCompleted] = useState(defaultCompleted)
+
   const completedPercentage =
     amount > 0 ? Math.round((completed / amount) * 100) : 0
 
   const dayAndMonth = dayjs(date).format('DD/MM')
   const dayOfWeek = dayjs(date).format('dddd')
-  const today = dayjs('day').toDate()
+  const today = dayjs().startOf('day').toDate()
   const isCurrentDay = dayjs(date).isSame(today)
+
+  function handleCompletedChange(completed: number) {
+    setCompleted(completed)
+  }
 
   return (
     <Popover.Root>
@@ -63,19 +69,7 @@ export default function HabitDay({
 
           <ProgressBar progress={completedPercentage} />
 
-          <div className="mt-6 flex flex-col gap-3">
-            <Checkbox.Root className="group flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-zinc-800 bg-zinc-900 group-data-[state=checked]:border-green-500 group-data-[state=checked]:bg-green-500">
-                <Checkbox.Indicator>
-                  <Check size={20} className="text-white" />
-                </Checkbox.Indicator>
-              </div>
-
-              <span className="text-xl font-semibold leading-tight text-white group-data-[state=checked]:text-zinc-400 group-data-[state=checked]:line-through">
-                Beber 2L de água
-              </span>
-            </Checkbox.Root>
-          </div>
+          <DailyList date={date} onCompletedChanged={handleCompletedChange} />
 
           <Popover.Arrow height={8} width={16} className="fill-zinc-900" />
         </Popover.Content>
